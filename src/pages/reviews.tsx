@@ -60,7 +60,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="mx-auto max-w-7xl p-4">
-        <Title order={1}>Feedback Form</Title>
+        <div className="flex justify-between">
+          <Title order={1}>Feedback Results</Title>
+          <Button>Go Back</Button>
+        </div>
         <form onSubmit={onSubmit}>
           <div className="grid gap-2 md:grid-cols-[1fr_1fr]">
             <div className="flex flex-col gap-4">
