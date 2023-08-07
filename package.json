@@ -19,6 +19,7 @@
     "@prisma/client": "^5.0.0",
     "@t3-oss/env-nextjs": "^0.3.1",
     "next": "^13.4.2",
+    "next-router-mock": "^0.9.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "recharts": "^2.7.2",

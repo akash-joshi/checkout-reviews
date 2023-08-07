@@ -1,15 +1,27 @@
-import { fireEvent, render, screen } from "@testing-library/react";
-import { useRouter } from "next/router";
+import {
+  act,
+  fireEvent,
+  render,
+  screen,
+  waitFor,
+} from "@testing-library/react";
+import mockRouter from "next-router-mock";
+
 import Home from "~/pages";
 
-jest.mock("next/router", () => ({
-  __esModule: true,
-  useRouter: jest.fn(),
-}));
+jest.mock("next/router", () => require("next-router-mock"));
+
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    json: jest.fn(),
+  })
+) as jest.Mock;
 
 describe("Home", () => {
-  it("should redirect on form submission", () => {
-    render(<Home />);
+  it("should redirect on form submission", async () => {
+    act(() => {
+      render(<Home />);
+    });
 
     const nameInput = screen.getByLabelText(/Name/);
     fireEvent.change(nameInput, { target: { value: "Test Value" } });
@@ -24,14 +36,14 @@ describe("Home", () => {
     fireEvent.click(ratingsInput[2] as Element);
 
     const submitButton = screen.getByText(/Submit/);
-    fireEvent.click(submitButton);
+    act(() => {
+      fireEvent.click(submitButton);
+    });
 
-    const mockRouter = {
-      push: jest.fn(), // the component uses `router.push` only
-    };
-
-    (useRouter as jest.Mock).mockReturnValue(mockRouter);
-
-    expect(mockRouter.push).toHaveBeenCalledWith("/reviews");
+    await waitFor(() =>
+      expect(mockRouter).toMatchObject({
+        pathname: "/reviews",
+      })
+    );
   });
 });
