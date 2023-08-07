@@ -35,7 +35,7 @@ export default function ReviewsPage({
         <title>Checkout Reviews</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="mx-auto max-w-7xl p-4">
+      <div className="mx-auto max-w-4xl p-4">
         <div className="flex justify-between">
           <Title order={1}>Feedback Results</Title>
           <Button
