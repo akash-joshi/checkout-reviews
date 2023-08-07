@@ -1,10 +1,4 @@
-import {
-  act,
-  fireEvent,
-  render,
-  screen,
-  waitFor,
-} from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import mockRouter from "next-router-mock";
 
 import Home from "~/pages";
@@ -19,9 +13,7 @@ global.fetch = jest.fn(() =>
 
 describe("Home", () => {
   it("should redirect on form submission", async () => {
-    act(() => {
-      render(<Home />);
-    });
+    render(<Home />);
 
     const nameInput = screen.getByLabelText(/Name/);
     fireEvent.change(nameInput, { target: { value: "Test Value" } });
@@ -36,9 +28,8 @@ describe("Home", () => {
     fireEvent.click(ratingsInput[2] as Element);
 
     const submitButton = screen.getByText(/Submit/);
-    act(() => {
-      fireEvent.click(submitButton);
-    });
+
+    fireEvent.click(submitButton);
 
     await waitFor(() =>
       expect(mockRouter).toMatchObject({

@@ -1,7 +1,8 @@
-import { Button, Divider, Title } from "@mantine/core";
+import { Button, Title } from "@mantine/core";
 import { type InferGetServerSidePropsType } from "next";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import React from "react";
 import { useMemo } from "react";
 import {
   Bar,
@@ -12,10 +13,10 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import StarRatings from "~/components/StarRatings";
+import { Reviews } from "~/components/Reviews";
 import { prisma } from "~/server/db";
 
-export default function Home({
+export default function ReviewsPage({
   reviewSpread,
   reviews,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -57,32 +58,7 @@ export default function Home({
           </ResponsiveContainer>
         </div>
         <Title order={2}>Latest Comments</Title>
-        <div>
-          {reviews.map((review, index) => (
-            <>
-              {index > 0 && (
-                <Divider className="mx-auto my-2 h-[2px] w-3/4 bg-[#ced4da]" />
-              )}
-              <div className="flex flex-col gap-2">
-                <Title order={4}>
-                  <b className="text-gray-400">{review.name}</b> on{" "}
-                  {new Date(review.createdAt).toLocaleString("default", {
-                    month: "long",
-                  })}
-                  , {new Date(review.createdAt).getFullYear()}
-                </Title>
-                <StarRatings rating={review.rating} />
-                <div>
-                  {review.comment.split("\n").map((text, index) => (
-                    <p className="my-1" key={index}>
-                      {text}
-                    </p>
-                  ))}
-                </div>
-              </div>
-            </>
-          ))}
-        </div>
+        <Reviews reviews={reviews} />
       </div>
     </>
   );
@@ -101,8 +77,8 @@ export async function getServerSideProps() {
         name: true,
       },
       orderBy: {
-        createdAt: "desc"
-      }
+        createdAt: "desc",
+      },
     })
   ).map((review) => ({
     ...review,
