@@ -6,7 +6,6 @@ import { useMemo } from "react";
 import {
   Bar,
   BarChart,
-  CartesianGrid,
   Legend,
   ResponsiveContainer,
   Tooltip,
@@ -49,7 +48,6 @@ export default function Home({
         <div className="mt-2 min-h-[300px]">
           <ResponsiveContainer width={"100%"} height={300}>
             <BarChart data={data}>
-              <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis />
               <Tooltip />
@@ -102,6 +100,9 @@ export async function getServerSideProps() {
         createdAt: true,
         name: true,
       },
+      orderBy: {
+        createdAt: "desc"
+      }
     })
   ).map((review) => ({
     ...review,

@@ -89,7 +89,7 @@ export default function Home() {
             </div>
             <div>
               <Input.Wrapper className="flex h-full flex-col">
-                <Input.Label id="review-comment" required>
+                <Input.Label htmlFor="review-comment" required>
                   Comment
                 </Input.Label>
                 <textarea

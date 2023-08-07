@@ -25,6 +25,7 @@ export default function Star({
 
   return (
     <svg
+      data-testid="star"
       onClick={(e) => {
         if (onClick) {
           onClick(e);
